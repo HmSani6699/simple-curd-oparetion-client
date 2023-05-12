@@ -26,9 +26,15 @@ const User = () => {
             <h2>All user number : {users.length}</h2>
             <div>
                 {
-                    users.map(user => <p key={user._id}>{user.name} : {user.email} : {user._id}<button
-                        onClick={() => handleDelte(user._id)}
-                    >X</button></p>)
+                    users.map(user => <p key={user._id}>{user.name} : {user.email} : {user._id}
+
+                        <Link to={`/user/${user._id}`}>
+                            <button>Update</button>
+                        </Link>
+
+                        <button
+                            onClick={() => handleDelte(user._id)}
+                        >X</button></p>)
                 }
             </div>
         </div>
