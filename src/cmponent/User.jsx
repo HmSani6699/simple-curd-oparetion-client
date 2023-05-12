@@ -1,18 +1,23 @@
+import { useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 
 const User = () => {
-    const users = useLoaderData();
-    console.log(users);
+    const loadUsers = useLoaderData();
+
+    const [users, setUsers] = useState(loadUsers)
 
     const handleDelte = _id => {
         console.log(_id);
-        fetch(`http://localhost:5000/user/${_id}`,{
-            method:'DELETE'
+        fetch(`http://localhost:5000/user/${_id}`, {
+            method: 'DELETE'
         })
-        .then(res=>res.json())
-        .then(data=>{
-            console.log(data);
-        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    const newUser = users.filter(user => user._id !== _id);
+                    setUsers(newUser)
+                }
+            })
     }
 
     return (
